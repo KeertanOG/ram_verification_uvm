@@ -3,7 +3,7 @@
 // Engineer: Keertan Patel
 // 
 // Create Date: 12.6.2025 10:41:16
-// Module Name: ram_write_trans
+// Module Name: ram_wtrans
 // Project Name: ram_verification 
 // Description: Write transaction class. 
 //
@@ -11,8 +11,8 @@
 ///////////////////////////////////////
 
 // Guard statement to avoid multiple compilation of a file
-`ifndef RAM_WRITE_TRANS_SV
-`define RAM_WRITE_TRANS_SV
+`ifndef RAM_WTRANS_SV
+`define RAM_WTRANS_SV
 
 class ram_wtrans extends uvm_sequence_item;
   
@@ -20,17 +20,21 @@ class ram_wtrans extends uvm_sequence_item;
   rand trans_type kind_e;
   
   //write signals
-  rand bit wr_enb;                        //enable signal for write
+  bit wr_enb;                             //enable signal for write
   rand bit [`ADDR_WIDTH-1:0] wr_addr;     //write address signal
   rand bit [`DATA_WIDTH-1:0] wr_data;     //write data signal
 
-  //read signals
-  rand bit rd_enb;                        //enable signal for read
-  rand bit [`ADDR_WIDTH-1:0] rd_addr;     //read address signal
-  rand bit [`DATA_WIDTH-1:0] rd_data;     //read data signal
-
-  `uvm_object_utils_begin(ram_trans)
-    `uvm_field_enum(kind_e, trans_kind, UVM_ALL_ON)
-    `uvm_field_int()
+  `uvm_object_utils_begin(ram_wtrans)
+    `uvm_field_enum(kind_e, trans_type, UVM_ALL_ON)
+    `uvm_field_int(wr_enb, UVM_ALL_ON | UVM_DEC)
+    `uvm_field_int(wr_addr, UVM_ALL_ON | UVM_DEC)
+    `uvm_field_int(wr_data, UVM_ALL_ON | UVM_DEC)
+  `uvm_object_utils_end
   
+  function new(string name = "ram_wtrans");
+    super.new(name);
+  endfunction
+
 endclass
+
+`endif
