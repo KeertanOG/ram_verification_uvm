@@ -14,7 +14,7 @@
 
 // guard statement to avoid multiple compilation of a file
 `ifndef RAM_INF_SV
-  `define RAM_INF_SV
+`define RAM_INF_SV
 
   interface ram_inf (input clk);
 
