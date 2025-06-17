@@ -30,6 +30,9 @@ class ram_rdriver extends uvm_driver #(ram_wtrans);
     seq_item_port.item_done;
   endtask
 
+  task send_to_dut();
+  endtask
+
 endclass
 
 `endif

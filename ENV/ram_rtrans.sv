@@ -18,7 +18,7 @@ class ram_rtrans extends uvm_sequence_item;
   
   //enum for the type of operation we want to perform on the ram (IDLE, READ,
   //WRITE, SIM_RW)
-  rand trans_type kind_e;
+  //rand trans_type kind_e;
 
   //read signals
   bit rd_enb;                             //enable signal for read
@@ -27,7 +27,7 @@ class ram_rtrans extends uvm_sequence_item;
 
  
   `uvm_object_utils_begin(ram_rtrans)
-    `uvm_field_enum(kind_e, trans_type, UVM_ALL_ON)
+//    `uvm_field_enum(kind_e, trans_type, UVM_ALL_ON)
     `uvm_field_int(rd_enb, UVM_ALL_ON | UVM_DEC)
     `uvm_field_int(rd_addr, UVM_ALL_ON | UVM_DEC)
     `uvm_field_int(rd_data, UVM_ALL_ON | UVM_DEC)

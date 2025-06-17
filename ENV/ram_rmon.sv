@@ -20,13 +20,18 @@ class ram_rmon extends uvm_monitor;
 
   uvm_analysis_port #(ram_rtrans) rmon_analysis_port;
 
+  virtual ram_inf vif;
+
   function new(string name="ram_rmon", uvm_component parent);
     super.new(name,parent);
     rmon_analysis_port = new("rmon_analysis_port",this);
   endfunction
 
-  task run_phase(uvm_phase);
+  task run_phase(uvm_phase phase);
     monitor();
+  endtask
+
+  task monitor();
   endtask
 
 endclass

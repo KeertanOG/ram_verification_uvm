@@ -20,12 +20,17 @@ class ram_wmon extends uvm_monitor;
 
   uvm_analysis_port #(ram_wtrans) wmon_analysis_port;
 
+  virtual ram_inf vif;
+
   function new(string name="ram_wmon", uvm_component parent);
     super.new(name,parent);
   endfunction
 
-  task run_phase(uvm_phase);
+  task run_phase(uvm_phase phase);
     monitor();
+  endtask
+
+  task monitor();
   endtask
 
 endclass

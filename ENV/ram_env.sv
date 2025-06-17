@@ -24,8 +24,8 @@ class ram_env extends uvm_env;
   uvm_analysis_export #(ram_wtrans) wenv_analysis_export;
   uvm_analysis_export #(ram_rtrans) renv_analysis_export;
 
-  function void new(string name="ram_env",umv_component parent);
-    super.new(name, parent);n
+  function new(string name="ram_env",uvm_component parent);
+    super.new(name, parent);
   endfunction
 
   function void build_phase(uvm_phase phase);
@@ -35,8 +35,8 @@ class ram_env extends uvm_env;
   endfunction
 
  function void connect_phase(uvm_phase phase);
-   wenv_analysis_export.connect(scb.wscb_analysis_export);
-   renv_analysis_export.connect(scb.rscb_analysis_export);
+   wenv_analysis_export.connect(scb_h.wscb_analysis_imp);
+   renv_analysis_export.connect(scb_h.rscb_analysis_imp);
  endfunction
  
 endclass

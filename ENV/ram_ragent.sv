@@ -16,9 +16,9 @@
 
 class ram_ragent extends uvm_agent;
 
-  `uvm_components_utils(ram_ragent)
+  `uvm_component_utils(ram_ragent)
 
-  uvm_analysis_export #(ram_trans) ragent_analysis_export;
+  uvm_analysis_export #(ram_rtrans) ragent_analysis_export;
 
   ram_rdriver rdrv_h;
   ram_rmon rmon_h;
@@ -30,17 +30,17 @@ class ram_ragent extends uvm_agent;
 
   virtual ram_inf vif;
 
-  function void build_phase(uvm_phase);
+  function void build_phase(uvm_phase phase);
     if(!uvm_config_db #(virtual ram_inf)::get(this,"vif",vif))
-      `uvm_fatal(ID,MESSAGE)
+      `uvm_fatal("ram_ragent","config_db error")
     rdrv_h = ram_rdriver::type_id::create("rdrv_h",this);
     rmon_h = ram_rmon::type_id::create("rmon_h",this);
     rseqr_h = ram_rseqr::type_id::create("rseqr_h",this);
   endfunction
 
   function void connect_phase(uvm_phase phase);
-    rdrv_h.seq_item_port.connect(seqr_h.seq_item_export);
-    ragent_analysis_export.connect(rmon_h.rmon_analysis_port)
+    rdrv_h.seq_item_port.connect(rseqr_h.seq_item_export);
+    ragent_analysis_export.connect(rmon_h.rmon_analysis_port);
     rdrv_h.vif = vif;
     rmon_h.vif = vif;
   endfunction

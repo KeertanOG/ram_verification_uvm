@@ -37,9 +37,9 @@ module ram_tb_top;
     .rd_data(r_inf.rd_data));
 
   //virtual interface set
-  uvm_config_db #(virtual ram_inf)::set(null,"*","vif",vif);
   
   initial begin
+    uvm_config_db #(virtual ram_inf)::set(null,"*","vif",r_inf);
     run_test("tb_top");
   end
 

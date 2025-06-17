@@ -2,8 +2,8 @@ compile:
 	vlog -coveropt 3 +cover +acc +incdir+../ENV +incdir+../TEST ../TEST/ram_pkg.sv ../TOP/ram_tb_top.sv ../RTL/ram_rtl.sv
  
 sim:
-	@echo "Running with test $(TEST)"
-	vsim -voptargs=+acc ram_tb_top $(TEST)
+	@echo "Running with test"
+	vsim -voptargs=+acc ram_tb_top
  
 sim_cmd:
 	@echo "Running in command-line mode with test"

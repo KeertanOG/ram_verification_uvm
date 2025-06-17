@@ -16,7 +16,7 @@
 
 class ram_scb extends uvm_scoreboard;
 
-  `uvm_components_utils(ram_scb)
+  `uvm_component_utils(ram_scb)
   
   uvm_analysis_imp #(ram_wtrans) wscb_analysis_imp;
   uvm_analysis_imp #(ram_rtrans) rscb_analysis_imp;  
