@@ -20,6 +20,9 @@ class ram_wmon extends uvm_monitor;
 
   uvm_analysis_port #(ram_wtrans) wmon_analysis_port;
 
+  //write transaction class handle
+  ram_wtrans trans_h = new();
+
   virtual ram_inf vif;
 
   function new(string name="ram_wmon", uvm_component parent);
@@ -31,6 +34,9 @@ class ram_wmon extends uvm_monitor;
   endtask
 
   task monitor();
+    trans_h.wr_enb = vif.mon_cb.wr_enb;
+    trans_h.wr_data = vif.mon_cb.wr_data;
+    trans_h.wr_addr = vif.mon_cb.wr_addr;
   endtask
 
 endclass

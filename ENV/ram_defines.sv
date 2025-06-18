@@ -16,6 +16,7 @@
 
   `define ADDR_WIDTH 6
   `define DATA_WIDTH 8
+  `define DEPTH 64
 
 typedef enum bit [1:0] {IDLE, READ, WRITE, SIM_RW} trans_type;
 

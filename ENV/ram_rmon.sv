@@ -20,6 +20,9 @@ class ram_rmon extends uvm_monitor;
 
   uvm_analysis_port #(ram_rtrans) rmon_analysis_port;
 
+  //read transaction class handle
+  ram_rtrans trans_h = new();
+
   virtual ram_inf vif;
 
   function new(string name="ram_rmon", uvm_component parent);
@@ -32,6 +35,9 @@ class ram_rmon extends uvm_monitor;
   endtask
 
   task monitor();
+    trans_h.rd_enb = vif.mon_cb.rd_enb;
+    trans_h.rd_addr = vif.mon_cb.rd_addr;
+    trans_h.rd_data = vif.mon_cb.rd_data;
   endtask
 
 endclass
