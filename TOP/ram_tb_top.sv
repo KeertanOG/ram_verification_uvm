@@ -39,8 +39,11 @@ module ram_tb_top;
   //virtual interface set
   
   initial begin
-    uvm_config_db #(virtual ram_inf)::set(null,"*","vif",r_inf);
-    run_test("tb_top");
+    fork
+      r_inf.reset(333);
+      uvm_config_db #(virtual ram_inf)::set(null,"*","vif",r_inf);
+      run_test("tb_top");
+    join
   end
 
 endmodule

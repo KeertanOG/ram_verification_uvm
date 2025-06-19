@@ -18,16 +18,20 @@ class ram_rseqs extends uvm_sequence;
 
   `uvm_component_utils(ram_rseqs)
 
+  rand int no_of_trans;         //variable for no of transaction
   ram_rtrans rtrans_h;
 
-  function new(string name="ram_rseqs",uvm_component parent);
-    super.new(name, parent);
+  function new(string name="ram_rseqs");
+    super.new(name);
   endfunction
 
   task body();
-    start_item(rtrans_h);
-    #10;                  //temporary. Delete it after writing logic
-    finish_item(rtrans_h);
+    repeat(no_of_trans) begin
+      rtrans_h = ram_rtrans::type_id::create("rtrans_h");
+      start_item(rtrans_h);
+      assert(rtrans_h.randomize());
+      finish_item(rtrans_h);
+    end
   endtask
 
 endclass

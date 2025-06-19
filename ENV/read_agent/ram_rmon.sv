@@ -21,7 +21,7 @@ class ram_rmon extends uvm_monitor;
   uvm_analysis_port #(ram_rtrans) rmon_analysis_port;
 
   //read transaction class handle
-  ram_rtrans trans_h = new();
+  ram_rtrans rtrans_h;
 
   virtual ram_inf vif;
 
@@ -31,13 +31,19 @@ class ram_rmon extends uvm_monitor;
   endfunction
 
   task run_phase(uvm_phase phase);
-    monitor();
+    //TODO : reset handling
+    forever begin
+      @(vif.mon_cb);
+      monitor();
+      rtrans_h.print();
+      rmon_analysis_port.write(rtrans_h);
+    end
   endtask
 
   task monitor();
-    trans_h.rd_enb = vif.mon_cb.rd_enb;
-    trans_h.rd_addr = vif.mon_cb.rd_addr;
-    trans_h.rd_data = vif.mon_cb.rd_data;
+    rtrans_h = ram_rtrans::type_id::create("rtrans_h");
+    rtrans_h.rd_enb = vif.mon_cb.rd_enb;
+    rtrans_h.rd_addr = vif.mon_cb.rd_addr;
   endtask
 
 endclass

@@ -52,7 +52,13 @@
 
       modport MON_MP (clocking mon_cb, input clk);
 
-    endinterface
+      //reset task
+      task reset(int cycle = 2);
+        rst = 1;
+        repeat(cycle) @(posedge clk);
+        rst = 0;
+      endtask
 
+    endinterface
 
 `endif

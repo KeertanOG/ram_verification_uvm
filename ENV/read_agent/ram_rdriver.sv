@@ -14,7 +14,7 @@
 `ifndef RAM_RDRIVER_SV
 `define RAM_RDRIVER_SV
 
-class ram_rdriver extends uvm_driver #(ram_wtrans);
+class ram_rdriver extends uvm_driver #(ram_rtrans);
 
   `uvm_component_utils(ram_rdriver)
 
@@ -25,12 +25,18 @@ class ram_rdriver extends uvm_driver #(ram_wtrans);
   endfunction
 
   task run_phase(uvm_phase phase);
-    seq_item_port.get_next_item(req);
-    send_to_dut();
-    seq_item_port.item_done;
+    //TODO : reset handling
+    forever begin
+      @(vif.drv_cb);
+      seq_item_port.get_next_item(req);
+      send_to_dut(req);
+      seq_item_port.item_done();
+    end
   endtask
 
-  task send_to_dut();
+  task send_to_dut(ram_rtrans req);
+    vif.drv_cb.rd_enb <= req.rd_enb;
+    vif.drv_cb.rd_addr <= req.rd_addr;
   endtask
 
 endclass

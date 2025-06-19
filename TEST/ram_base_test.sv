@@ -19,9 +19,7 @@ class ram_base_test extends uvm_test;
   `uvm_component_utils(ram_base_test)
   ram_env env_h;
   ram_wseqs wseqs_h;
-  ram_wseqr wseqr_h;
   ram_rseqs rseqs_h;
-  ram_rseqr rseqr_h;
 
   function new(string name="ram_base_test",uvm_component parent);
     super.new(name, parent);
@@ -35,9 +33,16 @@ class ram_base_test extends uvm_test;
   
   task run_phase(uvm_phase phase);
     phase.raise_objection(this);
-    wseqs_h.start(wseqr_h);
-    rseqs_h.start(rseqr_h);
-    #50;
+    fork
+      begin
+        void'(wseqs_h.randomize() with {no_of_trans == 10;});
+        wseqs_h.start(env_h.wagt_h.wseqr_h);
+      end
+      begin
+        void'(rseqs_h.randomize() with {no_of_trans == 10;});
+        rseqs_h.start(env_h.ragt_h.rseqr_h);
+      end
+    join
     phase.drop_objection(this);
   endtask
 

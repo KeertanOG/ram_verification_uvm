@@ -20,23 +20,30 @@ class ram_wmon extends uvm_monitor;
 
   uvm_analysis_port #(ram_wtrans) wmon_analysis_port;
 
+  virtual ram_inf vif;                  //virtual interface handle
   //write transaction class handle
-  ram_wtrans trans_h = new();
-
-  virtual ram_inf vif;
+  ram_wtrans wtrans_h;
 
   function new(string name="ram_wmon", uvm_component parent);
     super.new(name,parent);
+    wmon_analysis_port = new("wmon_analysis_port",this);
   endfunction
 
   task run_phase(uvm_phase phase);
-    monitor();
+    //TODO: reset handling
+    forever begin
+      @(vif.mon_cb);
+      monitor();
+      wtrans_h.print();
+      wmon_analysis_port.write(wtrans_h);
+    end
   endtask
 
   task monitor();
-    trans_h.wr_enb = vif.mon_cb.wr_enb;
-    trans_h.wr_data = vif.mon_cb.wr_data;
-    trans_h.wr_addr = vif.mon_cb.wr_addr;
+    wtrans_h = ram_wtrans::type_id::create("wtrans_h");
+    wtrans_h.wr_enb = vif.mon_cb.wr_enb;
+    wtrans_h.wr_addr = vif.mon_cb.wr_addr;
+    wtrans_h.wr_data = vif.mon_cb.wr_data;
   endtask
 
 endclass

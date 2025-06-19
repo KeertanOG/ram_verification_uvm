@@ -1,5 +1,5 @@
 compile:
-	vlog -coveropt 3 +cover +acc +incdir+../ENV +incdir+../TEST ../TEST/ram_pkg.sv ../TOP/ram_tb_top.sv ../RTL/ram_rtl.sv
+	vlog -coveropt 3 +cover +acc +incdir+../ENV +incdir+../TEST +incdir+../ENV/read_agent +incdir+../ENV/write_agent ../TEST/ram_pkg.sv ../TOP/ram_tb_top.sv ../RTL/ram_rtl.sv
  
 sim:
 	@echo "Running with test"

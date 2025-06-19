@@ -14,25 +14,28 @@
 `ifndef RAM_SCB_SV
 `define RAM_SCB_SV
 
+//decl macro
+`uvm_analysis_imp_decl(_wr_mon)
+`uvm_analysis_imp_decl(_rd_mon)
+
 class ram_scb extends uvm_scoreboard;
 
   `uvm_component_utils(ram_scb)
   
-  uvm_analysis_imp #(ram_wtrans) wscb_analysis_imp;
-  uvm_analysis_imp #(ram_rtrans) rscb_analysis_imp;  
+  uvm_analysis_imp_wr_mon #(ram_wtrans, ram_scb) wscb_analysis_imp_wr_mon;
+  uvm_analysis_imp_rd_mon #(ram_rtrans, ram_scb) rscb_analysis_imp_rd_mon;  
 
   int ram_assoc[int];
 
   function new(string name="ram_scb",uvm_component parent);
     super.new(name, parent);
-    wscb_analysis_imp = new("wscb_analysis_imp",this);
-    rscb_analysis_imp = new("rscb_analysis_imp",this);
-    ram_assoc = new[`DEPTH];
+    wscb_analysis_imp_wr_mon = new("wscb_analysis_imp_wr_mon",this);
+    rscb_analysis_imp_rd_mon = new("rscb_analysis_imp_rd_mon",this);
   endfunction
 
   //function for write operation
   function void write_operation(ram_wtrans trans_wr);
-    trans_h.print();
+    trans_wr.print();
     
     if(trans_wr.wr_enb)
       ram_assoc[trans_wr.wr_addr] = trans_wr.wr_data;
@@ -47,7 +50,7 @@ class ram_scb extends uvm_scoreboard;
 				`uvm_info("info","pass",UVM_LOW);
 		  end
 		  else
-			  `uvm_error("error",$sformatf("fail exp_data = %p",ram_dyn[trans_rd.rd_addr] ));
+			  `uvm_error("error",$sformatf("fail exp_data = %p",ram_assoc[trans_rd.rd_addr]));
 		end
 	endfunction
 

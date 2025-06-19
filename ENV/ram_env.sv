@@ -26,18 +26,21 @@ class ram_env extends uvm_env;
 
   function new(string name="ram_env",uvm_component parent);
     super.new(name, parent);
+    wenv_analysis_export = new("wenv_analysis_export",this);
+    renv_analysis_export = new("renv_analsysi_export",this);
   endfunction
 
   function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
     wagt_h = ram_wagent::type_id::create("wagt_h",this);
     ragt_h = ram_ragent::type_id::create("ragt_h",this);
     scb_h = ram_scb::type_id::create("scb_h",this);
   endfunction
 
- function void connect_phase(uvm_phase phase);
-   wenv_analysis_export.connect(scb_h.wscb_analysis_imp);
-   renv_analysis_export.connect(scb_h.rscb_analysis_imp);
- endfunction
+  function void connect_phase(uvm_phase phase);
+   wenv_analysis_export.connect(scb_h.wscb_analysis_imp_wr_mon);
+   renv_analysis_export.connect(scb_h.rscb_analysis_imp_rd_mon);
+  endfunction
  
 endclass
 
