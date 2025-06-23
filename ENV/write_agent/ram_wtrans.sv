@@ -20,7 +20,7 @@ class ram_wtrans extends uvm_sequence_item;
 //  rand trans_type kind_e;
   
   //write signals
-  bit wr_enb;                             //enable signal for write
+  rand bit wr_enb;                             //enable signal for write
   rand bit [`ADDR_WIDTH-1:0] wr_addr;     //write address signal
   rand bit [`DATA_WIDTH-1:0] wr_data;     //write data signal
 

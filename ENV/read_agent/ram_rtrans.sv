@@ -21,7 +21,7 @@ class ram_rtrans extends uvm_sequence_item;
   //rand trans_type kind_e;
 
   //read signals
-  bit rd_enb;                             //enable signal for read
+  rand bit rd_enb;                             //enable signal for read
   rand bit [`ADDR_WIDTH-1:0] rd_addr;     //read address signal
   rand bit [`DATA_WIDTH-1:0] rd_data;     //read data signal
 

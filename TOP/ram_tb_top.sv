@@ -42,7 +42,7 @@ module ram_tb_top;
     fork
       r_inf.reset(333);
       uvm_config_db #(virtual ram_inf)::set(null,"*","vif",r_inf);
-      run_test("tb_top");
+      run_test("ram_base_test");
     join
   end
 

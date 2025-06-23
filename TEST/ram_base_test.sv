@@ -26,9 +26,11 @@ class ram_base_test extends uvm_test;
   endfunction
 
   function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
     env_h = ram_env::type_id::create("env_h",this);
     wseqs_h = ram_wseqs::type_id::create("wseqs_h",this);
     rseqs_h = ram_rseqs::type_id::create("rseqs_h",this);
+//
   endfunction
   
   task run_phase(uvm_phase phase);

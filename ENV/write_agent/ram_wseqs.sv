@@ -14,10 +14,9 @@
 `ifndef RAM_WSEQ_SV
 `define RAM_WSEQ_SV
 
-class ram_wseqs extends uvm_sequence;
+class ram_wseqs extends uvm_sequence #(ram_wtrans);
 
-  `uvm_component_utils(ram_wseqs)
-
+  `uvm_object_utils(ram_wseqs)
   rand int no_of_trans;           //variable for no of transaction
   ram_wtrans wtrans_h;
 

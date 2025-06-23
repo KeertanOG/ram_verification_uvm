@@ -34,7 +34,7 @@ class ram_scb extends uvm_scoreboard;
   endfunction
 
   //function for write operation
-  function void write_operation(ram_wtrans trans_wr);
+  function void write_wr_mon(ram_wtrans trans_wr);
     trans_wr.print();
     
     if(trans_wr.wr_enb)
@@ -42,7 +42,7 @@ class ram_scb extends uvm_scoreboard;
   endfunction
 
 	// write method for read operation 
-	function void read_operation(ram_rtrans trans_rd);
+	function void write_rd_mon(ram_rtrans trans_rd);
     trans_rd.print();
 
 		if(trans_rd.rd_enb)begin 
