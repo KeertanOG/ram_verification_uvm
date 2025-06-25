@@ -35,6 +35,7 @@ class ram_scb extends uvm_scoreboard;
 
   //function for write operation
   function void write_wr_mon(ram_wtrans trans_wr);
+    $display("scoreboard write operation");
     trans_wr.print();
     
     if(trans_wr.wr_enb)
@@ -43,14 +44,15 @@ class ram_scb extends uvm_scoreboard;
 
 	// write method for read operation 
 	function void write_rd_mon(ram_rtrans trans_rd);
+    $display("scoreboard read operation");
     trans_rd.print();
 
 		if(trans_rd.rd_enb)begin 
 		  if(ram_assoc[trans_rd.rd_addr] == trans_rd.rd_data ) begin
-				`uvm_info("info","pass",UVM_LOW);
+				`uvm_info("scoreboard","pass",UVM_LOW);
 		  end
 		  else
-			  `uvm_error("error",$sformatf("fail exp_data = %p",ram_assoc[trans_rd.rd_addr]));
+			  `uvm_error("scoreboard",$sformatf("fail exp_data = %p",ram_assoc[trans_rd.rd_addr]));
 		end
 	endfunction
 

@@ -32,22 +32,62 @@ class ram_base_test extends uvm_test;
     rseqs_h = ram_rseqs::type_id::create("rseqs_h",this);
 //
   endfunction
-  
-  task run_phase(uvm_phase phase);
-    phase.raise_objection(this);
-    fork
-      begin
-        void'(wseqs_h.randomize() with {no_of_trans == 10;});
-        wseqs_h.start(env_h.wagt_h.wseqr_h);
-      end
-      begin
-        void'(rseqs_h.randomize() with {no_of_trans == 10;});
-        rseqs_h.start(env_h.ragt_h.rseqr_h);
-      end
-    join
-    phase.drop_objection(this);
-  endtask
+ 
+  //implementing multiple testcase so does not need run_phase here
+//  task run_phase(uvm_phase phase);
+//    phase.raise_objection(this);
+//    fork
+//      begin
+//        //written to randomize the no of transactions
+//        void'(wseqs_h.randomize() with {no_of_trans == 10;});
+//        wseqs_h.start(env_h.wagt_h.wseqr_h);
+//      end
+//      begin
+//        //written to randomize the no of transactions
+//        void'(rseqs_h.randomize() with {no_of_trans == 10;});
+//        rseqs_h.start(env_h.ragt_h.rseqr_h);
+//      end
+//    join
+//    phase.drop_objection(this);
+//  endtask
 
+  function void report_phase(uvm_phase phase);
+    uvm_report_server server_h;
+    int err_count, fatal_count;
+
+    server_h = uvm_report_server::get_server();
+
+    err_count = server_h.get_severity_count(UVM_ERROR);
+    fatal_count = server_h.get_severity_count(UVM_FATAL);
+
+    $display("error count is: %0d",err_count);
+    $display("fatal count is: %0d",fatal_count);
+    if(err_count==0 && fatal_count==0) begin
+      $display("========= ========= ========= =========");
+      $display("=       = =       = =         =        ");
+      $display("=       = =       = =         =        ");
+      $display("=       = =       = =         =        ");
+      $display("========= ========= ========= =========");
+      $display("=         =       =         =         =");
+      $display("=         =       =         =         =");
+      $display("=         =       =         =         =");
+      $display("=         =       =         =         =");
+      $display("=         =       = ========= =========");
+    end
+    else begin
+      $display("========= ========= ========= =      ");
+      $display("=         =       =     =     =      ");
+      $display("=         =       =     =     =      ");
+      $display("=         =       =     =     =      ");
+      $display("=         =       =     =     =      ");
+      $display("========= =========     =     =      ");
+      $display("=         =       =     =     =      ");
+      $display("=         =       =     =     =      ");
+      $display("=         =       =     =     =      ");
+      $display("=         =       =     =     =      ");
+      $display("=         =       = ========= =======");
+    end
+  endfunction
 endclass
 
 `endif

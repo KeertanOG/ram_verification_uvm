@@ -24,14 +24,14 @@ class ram_rseqs extends uvm_sequence #(ram_rtrans);
     super.new(name);
   endfunction
 
-  task body();
-    repeat(no_of_trans) begin
-      rtrans_h = ram_rtrans::type_id::create("rtrans_h");
-      start_item(rtrans_h);
-      assert(rtrans_h.randomize());
-      finish_item(rtrans_h);
-    end
-  endtask
+//  task body();
+//    repeat(no_of_trans) begin
+//      rtrans_h = ram_rtrans::type_id::create("rtrans_h");
+//      start_item(rtrans_h);
+//      assert(rtrans_h.randomize());
+//      finish_item(rtrans_h);
+//    end
+//  endtask
 
 endclass
 

@@ -3,11 +3,11 @@ compile:
  
 sim:
 	@echo "Running with test"
-	vsim -voptargs=+acc ram_tb_top
+	vsim -voptargs=+acc ram_tb_top +UVM_TESTNAME=$(TEST)
  
 sim_cmd:
 	@echo "Running in command-line mode with test"
-	vsim -voptargs=+acc -coverage ram_tb_top -c -do "run -all; exit;" $(TEST)
+	vsim -voptargs=+acc -coverage ram_tb_top -c -do "run -all; exit;" +UVM_TESTNAME=$(TEST)
 
 run_regression:
 	@echo "Running in command-line mode with test $(TEST)"

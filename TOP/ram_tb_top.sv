@@ -28,7 +28,7 @@ module ram_tb_top;
 
   ram dut(
     .clk(clk),
-    .rstn(r_inf.rst), 
+    .rst(r_inf.rst), 
     .wr_enb(r_inf.wr_enb), 
     .wr_addr(r_inf.wr_addr), 
     .wr_data(r_inf.wr_data), 
@@ -40,9 +40,16 @@ module ram_tb_top;
   
   initial begin
     fork
-      r_inf.reset(333);
+      r_inf.reset(3);
       uvm_config_db #(virtual ram_inf)::set(null,"*","vif",r_inf);
-      run_test("ram_base_test");
+
+      //for specified testcase at compile time
+//      run_test("ram_simultaneous_test");
+//      run_test("ram_write_test");
+//      run_test("ram_read_test");
+
+      //for choosing testcase from command line
+      run_test();
     join
   end
 

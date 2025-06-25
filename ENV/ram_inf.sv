@@ -32,7 +32,7 @@
 
     // clocking block for driver
     clocking drv_cb @(posedge clk);
-      default input #1 output #1;
+      default input #0 output #0;
       // dut ka input clocking block ka output 
       // input rd_data;
       // output rst, wr_enb, wr_addr, wr_data, rd_enb, rd_addr;
@@ -43,7 +43,7 @@
     
     // clocking block for monitor
     clocking mon_cb @(posedge clk);
-      default input #1 output #1;
+      default input #0 output #0;
       
       input rst, wr_enb, wr_addr, wr_data, rd_enb, rd_addr, rd_data;
     endclocking

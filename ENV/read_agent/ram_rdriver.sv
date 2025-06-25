@@ -25,12 +25,23 @@ class ram_rdriver extends uvm_driver #(ram_rtrans);
   endfunction
 
   task run_phase(uvm_phase phase);
-    //TODO : reset handling
+    //waiting for initial reset
+    wait(vif.rst);
+    wait(!vif.rst);           //waiting for reset release
     forever begin
-      @(vif.drv_cb);
-      seq_item_port.get_next_item(req);
-      send_to_dut(req);
-      seq_item_port.item_done();
+      fork
+        begin
+          wait(vif.rst);
+        end
+        forever begin
+          @(vif.drv_cb);
+          seq_item_port.get_next_item(req);
+          send_to_dut(req);
+          seq_item_port.item_done();
+        end
+      join_any
+      disable fork;
+      wait(!vif.rst);
     end
   endtask
 

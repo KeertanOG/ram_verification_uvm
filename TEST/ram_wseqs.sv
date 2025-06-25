@@ -20,6 +20,8 @@ class ram_wseqs extends uvm_sequence #(ram_wtrans);
   rand int no_of_trans;           //variable for no of transaction
   ram_wtrans wtrans_h;
 
+  constraint trans_no{soft no_of_trans == 10;}
+
   function new(string name="ram_wseqs");
     super.new(name);
   endfunction

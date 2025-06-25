@@ -14,9 +14,9 @@
 `ifndef RAM_DEFINES_SV
 `define RAM_DEFINES_SV
 
-  `define ADDR_WIDTH 6
+  `define ADDR_WIDTH 4
   `define DATA_WIDTH 8
-  `define DEPTH 64
+  `define DEPTH 16
 
 typedef enum bit [1:0] {IDLE, READ, WRITE, SIM_RW} trans_type;
 

@@ -26,6 +26,8 @@ package ram_pkg;
   `include "ram_wtrans.sv"
   `include "ram_rseqs.sv"
   `include "ram_wseqs.sv"
+  `include "ram_rd_seqs.sv"
+  `include "ram_wr_seqs.sv"
   `include "ram_rseqr.sv"
   `include "ram_wseqr.sv"
   `include "ram_wdriver.sv"
@@ -37,6 +39,9 @@ package ram_pkg;
   `include "ram_scb.sv"
   `include "ram_env.sv"
   `include "ram_base_test.sv"
+  `include "ram_simultaneous_test.sv"
+  `include "ram_write_test.sv"
+  `include "ram_read_test.sv"
 endpackage
 
 `endif

@@ -31,12 +31,23 @@ class ram_rmon extends uvm_monitor;
   endfunction
 
   task run_phase(uvm_phase phase);
-    //TODO : reset handling
+    //waiting for initial reset
+    wait(vif.rst);
+    wait(!vif.rst);           //waiting for reset release
     forever begin
-      @(vif.mon_cb);
-      monitor();
-      rtrans_h.print();
-      rmon_analysis_port.write(rtrans_h);
+      fork
+        begin
+          wait(vif.rst);      //waiting for in-between release
+        end
+        forever begin
+          @(vif.mon_cb);
+          monitor();
+//          rtrans_h.print();
+          rmon_analysis_port.write(rtrans_h);
+        end
+      join_any
+      disable fork;
+      wait(!vif.rst);
     end
   endtask
 
@@ -44,6 +55,7 @@ class ram_rmon extends uvm_monitor;
     rtrans_h = ram_rtrans::type_id::create("rtrans_h");
     rtrans_h.rd_enb = vif.mon_cb.rd_enb;
     rtrans_h.rd_addr = vif.mon_cb.rd_addr;
+    rtrans_h.rd_data = vif.mon_cb.rd_data;
   endtask
 
 endclass

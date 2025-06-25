@@ -30,12 +30,23 @@ class ram_wmon extends uvm_monitor;
   endfunction
 
   task run_phase(uvm_phase phase);
-    //TODO: reset handling
+    //waiting for initial reset
+    wait(vif.rst);
+    wait(!vif.rst);           //waiting for reset release
     forever begin
-      @(vif.mon_cb);
-      monitor();
-      wtrans_h.print();
-      wmon_analysis_port.write(wtrans_h);
+      fork 
+        begin
+          wait(vif.rst);
+        end
+        forever begin
+          @(vif.mon_cb);
+          monitor();
+          wtrans_h.print();
+          wmon_analysis_port.write(wtrans_h);
+        end
+      join_any
+      disable fork;
+      wait(!vif.rst);
     end
   endtask
 
